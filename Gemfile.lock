@@ -1,5 +1,5 @@
 GEM
-  remote: https://rubygems.org/
+  remote: http://rubygems.org/
   specs:
     actioncable (5.0.0.1)
       actionpack (= 5.0.0.1)
@@ -52,6 +52,7 @@ GEM
     concurrent-ruby (1.0.2)
     daemons (1.2.4)
     debug_inspector (0.0.2)
+    ejs (1.1.1)
     erubis (2.7.0)
     eventmachine (1.2.0.1)
     execjs (2.7.0)
@@ -169,6 +170,7 @@ PLATFORMS
 DEPENDENCIES
   byebug
   coffee-rails (~> 4.2)
+  ejs
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)

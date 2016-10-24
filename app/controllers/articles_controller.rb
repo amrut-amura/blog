@@ -2,14 +2,14 @@ class ArticlesController < ApplicationController
 	
 	def index
 		@article = Article.all
-		# render json: @article
+		render json: @article
 	end
 	def app
 		redirect_to "https://www.google.com"
 	end
 	def show
 		@article = Article.find(params[:id])
-		render json: [@article,@article.comments]
+		render json: @article
 	end
 
 	def new
@@ -23,7 +23,7 @@ class ArticlesController < ApplicationController
 		 @article = Article.new(article_params)
 		  if @article.save
 		  		flash[:notice] = " Article is successfully created."
-		  		render json: @article
+		  		# render json: @article
 		  else
 		    	render nothing: true, status: :bad_request
 		  end
@@ -32,7 +32,7 @@ class ArticlesController < ApplicationController
 		  @article = Article.find(params[:id])
 		 
 		  if @article.update(article_params)
-		    	render json: @article
+		    	# render json: @article
 		  else
 		    	render nothing: true, status: :bad_request
 		  end
