@@ -4,19 +4,18 @@ App.Controllers.articlecontroller = Marionette.Object.extend({
 	},
 	index:function (options) {
 		console.log("in the index page");
-		
+		var layout = new App.Layouts.main();
+		layout.render();
+
 		var articlecollection = new App.Collections.article();
 		articlecollection.fetch().then(function(){
 			console.log(articlecollection);
 			console.log(JST["article_list"]);
-			var view = new App.Views.articleslistview({
+			layout.getRegion('article_list').show(new App.Views.articleslistview({
 				template: JST["app/templates/article_list"],
 				collection: articlecollection
-			});
-			var form_view = new App.Views.articlesformview();
-			console.log(view);
-			$('body').append(view.render().el);
-			$('#article-form').html(form_view.render().el);
+			}));
+			layout.getRegion('new').show(new App.Views.articlesformview());
 		});
 		console.log(articlecollection);
 	},
