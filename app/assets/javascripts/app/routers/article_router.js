@@ -1,7 +1,7 @@
 App.Routers.articlerouter = Marionette.AppRouter.extend({
 	appRoutes:{
 		'articles':'index',
-		'article/:id':'show',
+		'articles/:id':'show',
 		'':'index'
 	}
 });

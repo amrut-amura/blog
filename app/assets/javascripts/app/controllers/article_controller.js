@@ -4,6 +4,7 @@ App.Controllers.articlecontroller = Marionette.Object.extend({
 	},
 	index:function (options) {
 		console.log("in the index page");
+		
 		var articlecollection = new App.Collections.article();
 		articlecollection.fetch().then(function(){
 			console.log(articlecollection);
@@ -12,23 +13,25 @@ App.Controllers.articlecontroller = Marionette.Object.extend({
 				template: JST["app/templates/article_list"],
 				collection: articlecollection
 			});
+			var form_view = new App.Views.articlesformview();
 			console.log(view);
 			$('body').append(view.render().el);
+			$('#article-form').html(form_view.render().el);
 		});
 		console.log(articlecollection);
 	},
 	show:function(id){
-		// debugger;
 		console.log("i am in show");
-		article = new App.Models.articlemodel({id:id});
-		article.fetch(id).then(function(response){
+		alert(id);
+		var article_data = new App.Models.articlemodel({id:id});
+		debugger;
+		article_data.fetch().done(function(response){
 			console.log(response);
-			console.log(this);
-			var view = new App.Views.articleitemview({
+			var data_view = new App.Views.articleitemview({
 				template: JST["app/templates/article"],
-				model: article
+				model: article_data
 			});
-			$('body').append(view.render().el);
+			$('body').html(data_view.render().el);
 		});
 	}
 });

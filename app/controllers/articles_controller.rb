@@ -2,14 +2,22 @@ class ArticlesController < ApplicationController
 	
 	def index
 		@article = Article.all
-		render json: @article
+		
+		respond_to do |format|
+			format.html
+			format.json {render json: @article}
+		end
 	end
 	def app
 		redirect_to "https://www.google.com"
 	end
 	def show
 		@article = Article.find(params[:id])
-		render json: @article
+		# render json: @article
+		respond_to do |format|
+			format.html
+			format.json {render json: @article}
+		end
 	end
 
 	def new
