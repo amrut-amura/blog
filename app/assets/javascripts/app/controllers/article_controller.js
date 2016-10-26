@@ -1,9 +1,7 @@
 App.Controllers.articlecontroller = Marionette.Object.extend({
 	initialize:function(argument) {
-		var self = this;
+		self = this;
 		console.log("model is initialized");
-
-		// self.articlecollection = new App.Collections.article();
 
 		App.on("create",function(article){
 			self.create(article);
@@ -14,7 +12,7 @@ App.Controllers.articlecontroller = Marionette.Object.extend({
 		App.on("update",function(article){
 			self.update(article);
 		}),
-		App.on("delete",function(article){
+		App.on("delete_article",function(article){
 			self.delete_article(article);
 		})
 	},
@@ -39,6 +37,7 @@ App.Controllers.articlecontroller = Marionette.Object.extend({
 		article_to_save.save({},{
 			success:function(){
 				self.articlecollection.add(article_to_save);
+				self.articlecollection.trigger("change");
 				console.log("added article");
 			},
 			error:function(){
@@ -63,10 +62,7 @@ App.Controllers.articlecontroller = Marionette.Object.extend({
 		article.save({},{
 			success:function (options) {
 				self.articlecollection.push(article,{merge:true});
-				layout.getRegion('article_list').show(new App.Views.articleslistview({
-					template: JST["app/templates/article_list"],
-					collection: self.articlecollection
-				}));
+				self.articlecollection.trigger("change");
 				console.log("updated");
 			},
 			error:function (options) {
@@ -75,12 +71,15 @@ App.Controllers.articlecontroller = Marionette.Object.extend({
 		})
 	},
 	delete_article:function(article){
-		article.destroy().done(function(response){
-			self.articlecollection.remove(article);
-			layout.getRegion('article_list').show(new App.Views.articleslistview({
-					template: JST["app/templates/article_list"],
-					collection: self.articlecollection
-				}));
+		var article_to_delete = article;
+		article_to_delete.id = article.get("id");
+		article_to_delete.destroy({},{
+			success:function (model,response,options) {
+				self.articlecollection.remove(model);
+			},
+			error:function (argument) {
+				console.log("error while deleting artice");
+			}
 		});
 	}	
 });
