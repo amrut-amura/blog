@@ -1,5 +1,5 @@
 App.Models.articlemodel = Backbone.Model.extend({
-	url: "/articles",
+	urlRoot: "/articles",
 	intialize: function (argument) {
 		console.log("model is intialized");
 	},

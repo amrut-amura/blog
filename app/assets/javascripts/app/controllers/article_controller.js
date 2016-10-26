@@ -4,10 +4,10 @@ App.Controllers.articlecontroller = Marionette.Object.extend({
 	},
 	index:function (options) {
 		console.log("in the index page");
-		var layout = new App.Layouts.main();
+		layout = new App.Layouts.main();
 		layout.render();
 
-		var articlecollection = new App.Collections.article();
+		articlecollection = new App.Collections.article();
 		articlecollection.fetch().then(function(){
 			console.log(articlecollection);
 			console.log(JST["article_list"]);

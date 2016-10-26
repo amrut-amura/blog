@@ -7,10 +7,9 @@ App.Layouts.main = Mn.LayoutView.extend({
 	el:'body',
 	childEvents:{
 		"submit:form":"create_article"
-	},
+		},
+
 	create_article:function(childview,event) {
-		// event.preventDefault();
-		debugger;
 		var article_model = new App.Models.articlemodel({
 			title:childview.ui.title.val(),
 			text:childview.ui.text.val()
