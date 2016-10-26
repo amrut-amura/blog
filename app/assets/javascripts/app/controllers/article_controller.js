@@ -54,8 +54,6 @@ App.Controllers.articlecontroller = Marionette.Object.extend({
 					model:article_model
 				});
 				$("#new").html(view.render().el);
-			console.log(response);
-			console.log("view is rendered");
 		});
 	},
 	update:function(article) {
