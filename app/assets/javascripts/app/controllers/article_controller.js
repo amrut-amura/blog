@@ -35,8 +35,9 @@ App.Controllers.articlecontroller = Marionette.Object.extend({
 	create:function(article){
 		var article_to_save = article;
 		article_to_save.save({},{
-			success:function(){
-				self.articlecollection.add(article_to_save);
+			success:function(model,response,options){
+				// debugger;
+				self.articlecollection.add(model);
 				self.articlecollection.trigger("change");
 				console.log("added article");
 			},
@@ -60,7 +61,7 @@ App.Controllers.articlecontroller = Marionette.Object.extend({
 		article.save({},{
 			success:function (options) {
 				self.articlecollection.push(article,{merge:true});
-				self.articlecollection.trigger("change");
+				// self.articlecollection.trigger("change");
 				console.log("updated");
 			},
 			error:function (options) {
