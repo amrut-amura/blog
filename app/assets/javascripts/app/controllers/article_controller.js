@@ -11,8 +11,11 @@ App.Controllers.articlecontroller = Marionette.Object.extend({
 		App.on("edit",function(article_id){
 			self.edit(article_id);
 		}),
+		App.on("update",function(article){
+			self.update(article);
+		}),
 		App.on("delete",function(article){
-			self.delete(article);
+			self.delete_article(article);
 		})
 	},
 	
@@ -56,11 +59,28 @@ App.Controllers.articlecontroller = Marionette.Object.extend({
 			console.log("view is rendered");
 		});
 	},
-	delete:function(article){
-		var article_to_destroy = article;
-		article_to_destroy.destroy().done(function(response){
-			self.articlecollection.remove(article_to_destroy);
-			console.log("deletion");
+	update:function(article) {
+		article.save({},{
+			success:function (options) {
+				self.articlecollection.push(article,{merge:true});
+				layout.getRegion('article_list').show(new App.Views.articleslistview({
+					template: JST["app/templates/article_list"],
+					collection: self.articlecollection
+				}));
+				console.log("updated");
+			},
+			error:function (options) {
+				console.log("error while updating article");
+			}
+		})
+	},
+	delete_article:function(article){
+		article.destroy().done(function(response){
+			self.articlecollection.remove(article);
+			layout.getRegion('article_list').show(new App.Views.articleslistview({
+					template: JST["app/templates/article_list"],
+					collection: self.articlecollection
+				}));
 		});
 	}	
 });

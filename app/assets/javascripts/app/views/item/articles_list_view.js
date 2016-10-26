@@ -13,9 +13,9 @@ App.Views.articleslistview = Marionette.ItemView.extend({
 	},
 	delete_article:function(event){
 		event.preventDefault();
-		// debugger;
 		var article_id = $(event.currentTarget).data('article');
-		var article_model = new App.Models.articlemodel({id: parseInt(article_id,10)});
+		var article_model = this.collection.get(article_id);
+		// debugger;
 		App.trigger("delete",article_model);
-	}	
+	}
 });
