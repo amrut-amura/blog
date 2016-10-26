@@ -38,7 +38,6 @@ App.Controllers.articlecontroller = Marionette.Object.extend({
 			success:function(model,response,options){
 				// debugger;
 				self.articlecollection.add(model);
-				self.articlecollection.trigger("change");
 				console.log("added article");
 			},
 			error:function(){
