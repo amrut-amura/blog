@@ -45,8 +45,9 @@ App.Controllers.articlecontroller = Marionette.Object.extend({
 				layout.getRegion('new').show(new App.Views.articlesformview());
 				console.log("added article");
 			},
-			error:function(){
-				console.log("error while adding article");
+			error:function(options,errors){
+					article.errors = errors.responseJSON;
+				console.log(errors);
 			}
 		});
 	},
@@ -89,5 +90,9 @@ App.Controllers.articlecontroller = Marionette.Object.extend({
 		layout.getRegion("show").show(new App.Views.article_show_view({
 			model:article
 		}));
+	},
+	error_function:function (errors) {
+		layout.addRegion("error","#errors");
+		layout.getRegion("error").show(new App.Collections.errors(errors));
 	}
 });

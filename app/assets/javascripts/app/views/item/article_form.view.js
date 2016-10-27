@@ -1,7 +1,6 @@
 App.Views.articlesformview = Marionette.ItemView.extend({
 	template: JST["app/templates/article_form"],
 	
-  
   	initialize: function() {
         this.listenTo(this.model, "change", this.render);
     },

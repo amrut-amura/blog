@@ -3,7 +3,8 @@ App.Layouts.main = Mn.LayoutView.extend({
 	regions:{
 		'new': '#new',
 		'article_list':'#article_list',
-		"show":"#show_article"
+		"show":"#show_article",
+		"error":"#article_errors"
 	},
 	el:'body'
 });
