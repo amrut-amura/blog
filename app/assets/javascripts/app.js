@@ -4,8 +4,6 @@
 //= require backbone/backbone.marionette
 
 
-console.log(Backbone);
-console.log(Marionette);
 window.App = new Backbone.Marionette.Application();
 _.extend(App, {
 	Collections: {},

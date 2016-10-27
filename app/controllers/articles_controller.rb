@@ -2,14 +2,22 @@ class ArticlesController < ApplicationController
 	
 	def index
 		@article = Article.all
-		render json: @article
+		
+		respond_to do |format|
+			format.html
+			format.json {render json: @article}
+		end
 	end
 	def app
 		redirect_to "https://www.google.com"
 	end
 	def show
 		@article = Article.find(params[:id])
-		render json: @article
+		# render json: @article
+		respond_to do |format|
+			format.html
+			format.json {render json: @article}
+		end
 	end
 
 	def new
@@ -23,7 +31,10 @@ class ArticlesController < ApplicationController
 		 @article = Article.new(article_params)
 		  if @article.save
 		  		flash[:notice] = " Article is successfully created."
-		  		# render json: @article
+		  		respond_to do |format|
+					format.html
+					format.json {render json: @article}
+				end
 		  else
 		    	render nothing: true, status: :bad_request
 		  end
@@ -32,7 +43,10 @@ class ArticlesController < ApplicationController
 		  @article = Article.find(params[:id])
 		 
 		  if @article.update(article_params)
-		    	# render json: @article
+		    	respond_to do |format|
+					format.html
+					format.json {render json: @article}
+				end
 		  else
 		    	render nothing: true, status: :bad_request
 		  end
@@ -40,7 +54,10 @@ class ArticlesController < ApplicationController
 	def destroy
 		 @article = Article.find(params[:id])
 		 if @article.destroy
-		 	render nothing: true
+		 	respond_to do |format|
+				format.html
+				format.json {render json: @article}
+			end
 		 else
 		  render nothing: true, status: :bad_request
 		 end
