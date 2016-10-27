@@ -16,7 +16,3 @@ _.extend(App, {
 	event: _.extend({}, Backbone.Events),
 	base_url: ""
 });
-
-
- 
-
