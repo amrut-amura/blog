@@ -14,6 +14,9 @@ App.Controllers.articlecontroller = Marionette.Object.extend({
 		}),
 		App.on("delete_article",function(article){
 			self.delete_article(article);
+		}),
+		App.on("show",function (article) {
+			self.show(article);
 		})
 	},
 	
@@ -60,7 +63,6 @@ App.Controllers.articlecontroller = Marionette.Object.extend({
 		article.save({},{
 			success:function (options) {
 				self.articlecollection.push(article,{merge:true});
-				// self.articlecollection.trigger("change");
 				console.log("updated");
 			},
 			error:function (options) {
@@ -79,5 +81,11 @@ App.Controllers.articlecontroller = Marionette.Object.extend({
 				console.log("error while deleting artice");
 			}
 		});
-	}	
+	},
+	show:function (article) {
+		layout.addRegion("show","#show");
+		layout.getRegion("show").show(new App.Views.article_show_view({
+			model:article
+		}));
+	}
 });
