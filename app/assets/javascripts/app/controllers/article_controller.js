@@ -62,6 +62,7 @@ App.Controllers.articlecontroller = Marionette.Object.extend({
 		article.save({},{
 			success:function (options) {
 				self.articlecollection.push(article,{merge:true});
+				layout.getRegion('new').show(new App.Views.articlesformview());
 				console.log("updated");
 			},
 			error:function (options) {
