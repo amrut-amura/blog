@@ -28,6 +28,7 @@ App.Controllers.articlecontroller = Marionette.Object.extend({
 
 		self.articlecollection = new App.Collections.article();
 		self.articlecollection.fetch().then(function(){
+			// debugger;
 			layout.getRegion('article_list').show(new App.Views.articleslistview({
 				template: JST["app/templates/article_list"],
 				collection: self.articlecollection
@@ -41,6 +42,7 @@ App.Controllers.articlecontroller = Marionette.Object.extend({
 			success:function(model,response,options){
 				// debugger;
 				self.articlecollection.add(model);
+				layout.getRegion('new').show(new App.Views.articlesformview());
 				console.log("added article");
 			},
 			error:function(){
