@@ -52,17 +52,17 @@ App.Controllers.articlecontroller = Marionette.Object.extend({
 		event.preventDefault();
 		var article_model = new App.Models.articlemodel({id: article_id});
 		article_model.fetch().done(function(response){
-				var view = new App.Views.articleeditview({
+				layout.getRegion('new').show(new App.Views.articleeditview({
 					template: JST["app/templates/article_edit"],
 					model:article_model
-				});
-				$("#new").html(view.render().el);
+				}));
 		});
 	},
 	update:function(article) {
 		article.save({},{
 			success:function (options) {
 				self.articlecollection.push(article,{merge:true});
+				layout.getRegion('new').show(new App.Views.articlesformview());
 				console.log("updated");
 			},
 			error:function (options) {
