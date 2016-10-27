@@ -36,7 +36,8 @@ class ArticlesController < ApplicationController
 					format.json {render json: @article}
 				end
 		  else
-		    	render nothing: true, status: :bad_request
+		    	# render nothing: true, status: :bad_request
+		    	render json: @article.errors.full_messages, status: :bad_request
 		  end
 	end
 	def update
