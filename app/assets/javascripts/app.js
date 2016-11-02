@@ -13,6 +13,7 @@ _.extend(App, {
 	Layouts: {},
 	Views:{},
 	Constants: {},
+	Behavior:{},
 	event: _.extend({}, Backbone.Events),
 	base_url: ""
 });
