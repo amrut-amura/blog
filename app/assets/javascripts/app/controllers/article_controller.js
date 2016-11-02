@@ -19,8 +19,6 @@ App.Controllers.articlecontroller = Marionette.Object.extend({
 			self.show(article);
 		})
 	},
-	
-
 	index:function (options) {
 		console.log("in the index page");
 		layout = new App.Layouts.main();
