@@ -1,10 +1,9 @@
 App.Layouts.main = Mn.LayoutView.extend({
 	template: JST["app/templates/layouts/main"],
 	regions:{
-		'new': '#new',
-		'article_list':'#article_list',
-		"show":"#show_article",
-		"error":"#article_errors"
+		"main":"#main",
+		'footer':'#footer',
+		'check':'#check'
 	},
 	el:'body'
 });

@@ -1,9 +1,5 @@
 App.Views.articlesformview = Marionette.ItemView.extend({
 	template: JST["app/templates/article_form"],
-	
-  	initialize: function() {
-        this.listenTo(this.model, "change", this.render);
-    },
     events: {
         'click #article_submit': "add_article"
     },
@@ -15,6 +11,15 @@ App.Views.articlesformview = Marionette.ItemView.extend({
     		title:title,
     		text:text
     	});
-    	App.trigger("create",article_model);
+    	article_model.save({},{
+         success:function(model,response,options){
+             articlecollection.add(model);
+             Backbone.history.navigate("",true);
+         },
+         error:function(options,errors){
+                 article.errors = errors.responseJSON;
+             console.log(errors);
+         }
+     });
     }
 });

@@ -2,95 +2,42 @@ App.Controllers.articlecontroller = Marionette.Object.extend({
 	initialize:function(argument) {
 		self = this;
 		console.log("model is initialized");
-
-		App.on("create",function(article){
-			self.create(article);
-		}),
-		App.on("edit",function(article_id){
-			self.edit(article_id);
-		}),
-		App.on("update",function(article){
-			self.update(article);
-		}),
-		App.on("delete_article",function(article){
-			self.delete_article(article);
-		}),
-		App.on("show",function (article) {
-			self.show(article);
-		})
 	},
 	index:function (options) {
 		console.log("in the index page");
 		layout = new App.Layouts.main();
 		layout.render();
 
-		self.articlecollection = new App.Collections.article();
-		self.articlecollection.fetch().then(function(){
-			// debugger;
-			layout.getRegion('article_list').show(new App.Views.articleslistview({
+		articlecollection = new App.Collections.article();
+		articlecollection.fetch().then(function(){
+			layout.getRegion('main').show(new App.Views.articleslistview({
 				template: JST["app/templates/article_list"],
-				collection: self.articlecollection
+				collection: articlecollection
 			}));
-			layout.getRegion('new').show(new App.Views.articlesformview());
+			layout.getRegion('footer').show(new App.Views.footermview());
 		});
 	},
-	create:function(article){
-		var article_to_save = article;
-		article_to_save.save({},{
-			success:function(model,response,options){
-				// debugger;
-				self.articlecollection.add(model);
-				layout.getRegion('new').show(new App.Views.articlesformview());
-				console.log("added article");
-			},
-			error:function(options,errors){
-					article.errors = errors.responseJSON;
-				console.log(errors);
-			}
-		});
+	new:function(argument) {
+		layout.getRegion('main').show(new App.Views.articlesformview());
 	},
-	edit:function(article_id) {
-		event.preventDefault();
-		var article_model = new App.Models.articlemodel({id: article_id});
+	
+	edit:function(id) {
+		// debugger;
+		var article_model = new App.Models.articlemodel({id: id});
 		article_model.fetch().done(function(response){
-				layout.getRegion('new').show(new App.Views.articleeditview({
+				layout.getRegion('main').show(new App.Views.articleeditview({
 					template: JST["app/templates/article_edit"],
 					model:article_model
 				}));
 		});
 	},
-	update:function(article) {
-		article.save({},{
-			success:function (options) {
-				self.articlecollection.push(article,{merge:true});
-				layout.getRegion('new').show(new App.Views.articlesformview());
-				console.log("updated");
-			},
-			error:function (options) {
-				console.log("error while updating article");
-			}
+	show:function(id) {
+		var article_model = new App.Models.articlemodel({id:id});
+		article_model.fetch().done(function (return_model,response) {
+			debugger;
+			layout.getRegion('check').show(new App.Views.articleshowview({
+				model:return_model
+			}));
 		})
-	},
-	delete_article:function(article){
-		var article_to_delete = article;
-		article_to_delete.id = article.get("id");
-		article_to_delete.destroy({},{
-			success:function (model,response,options) {
-				self.articlecollection.remove(model);
-			},
-			error:function (argument) {
-				console.log("error while deleting artice");
-			}
-		});
-	},
-	show:function (article) {
-		layout.addRegion("show","#show");
-		layout.getRegion("show").show(new App.Views.article_show_view({
-			model:article
-		}));
-	},
-	error_function:function (errors) {
-		layout.addRegion("error","#errors");
-		layout.getRegion("error").show(new App.Collections.errors(errors));
 	}
 });
