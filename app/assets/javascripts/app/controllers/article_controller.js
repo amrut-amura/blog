@@ -33,7 +33,7 @@ App.Controllers.articlecontroller = Marionette.Object.extend({
 	},
 	show:function(id) {
 		var article_model = new App.Models.articlemodel({id:id});
-		article_model.fetch().done(function (return_model,response,options) {
+		article_model.fetch().done(function (return_model,response) {
 			debugger;
 			layout.getRegion('main').show(new App.Views.articleshowview({
 				model:return_model

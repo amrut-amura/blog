@@ -5,5 +5,4 @@ App.Layouts.main = Mn.LayoutView.extend({
 		'footer':'#footer'
 	},
 	el:'body'
-	
 });
