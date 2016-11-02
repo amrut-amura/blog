@@ -3,6 +3,11 @@ App.Views.articlesformview = Marionette.ItemView.extend({
     events: {
         'click #article_submit': "add_article"
     },
+    behaviors:{
+        main:{
+            behaviorClass: App.Behavior.main
+        }
+    },
     add_article:function (event) {
     	event.preventDefault();
     	var title = $("#title").val();
